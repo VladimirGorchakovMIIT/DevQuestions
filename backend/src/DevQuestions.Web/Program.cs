@@ -1,9 +1,8 @@
-using DevQuestions.Presenters.Controllers;
+using DevQuestions.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+builder.Services.AddProgrammeDependencies();
 
 var app = builder.Build();
 
