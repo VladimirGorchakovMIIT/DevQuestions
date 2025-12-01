@@ -1,4 +1,5 @@
 ﻿using DevQuestions.Application;
+using DevQuestions.Infrastructure.DependencyInjection;
 
 namespace DevQuestions.Web;
 
@@ -9,6 +10,7 @@ public static class DependencyInjection
         AddWebDependencies(services);
         
         services.AddApplication();
+        services.AddPostgresqlInfrastructure();
 
         return services;
     }

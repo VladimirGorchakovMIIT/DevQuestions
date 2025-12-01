@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevQuestions.Contracts", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevQuestions.Application", "src\DevQuestions.Application\DevQuestions.Application.csproj", "{29167D53-ED58-43E4-9CE9-034988FC7894}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevQuestions.Infrastructure", "src\DevQuestions.Infrastructure\DevQuestions.Infrastructure.csproj", "{88661C96-431B-4701-9284-78D3CB0A2871}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevQuestions.Infrastructure.Postgresql", "src\DevQuestions.Infrastructure.Postgresql\DevQuestions.Infrastructure.Postgresql.csproj", "{88661C96-431B-4701-9284-78D3CB0A2871}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
