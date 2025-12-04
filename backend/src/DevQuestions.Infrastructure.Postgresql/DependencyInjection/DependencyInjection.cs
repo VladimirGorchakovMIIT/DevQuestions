@@ -9,8 +9,9 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddPostgresqlInfrastructure(this IServiceCollection services)
     {
-        services.AddSingleton<ISqlConnectionFactory, SqlConnectionFactory>();
+        services.AddScoped<ApplicationDbContext>();
         services.AddScoped<IQuestionsRepository, QuestionsRepository>();
+        services.AddSingleton<ISqlConnectionFactory, SqlConnectionFactory>();
         
         return services;
     }

@@ -2,7 +2,7 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DevQuestions.Application;
+namespace DevQuestions.Application.DependencyInjection;
 
 public static class DependencyInjection
 {

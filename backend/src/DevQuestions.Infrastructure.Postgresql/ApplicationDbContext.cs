@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevQuestions.Infrastructure;
 
-public class QuestionsDbContext : DbContext
+public class ApplicationDbContext : DbContext
 {
     public DbSet<Question> Questions { get; set; }
 }

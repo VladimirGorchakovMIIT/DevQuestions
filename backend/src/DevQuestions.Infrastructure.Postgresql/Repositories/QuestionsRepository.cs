@@ -9,11 +9,11 @@ namespace DevQuestions.Infrastructure.Repositories;
 
 public class QuestionsRepository : IQuestionsRepository
 {
-    private readonly QuestionsDbContext _dbContext;
+    private readonly ApplicationDbContext _dbContext;
     private readonly IConfiguration _configuration;
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
     
-    public QuestionsRepository(QuestionsDbContext dbContext, IConfiguration configuration, ISqlConnectionFactory sqlConnectionFactory)
+    public QuestionsRepository(ApplicationDbContext dbContext, IConfiguration configuration, ISqlConnectionFactory sqlConnectionFactory)
     {
         _dbContext = dbContext;
         _configuration = configuration;

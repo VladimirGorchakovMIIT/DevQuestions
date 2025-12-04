@@ -1,4 +1,5 @@
 ﻿using DevQuestions.Application;
+using DevQuestions.Application.DependencyInjection;
 using DevQuestions.Infrastructure.DependencyInjection;
 
 namespace DevQuestions.Web;
