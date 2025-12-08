@@ -12,7 +12,7 @@ public interface IQuestionService
     /// <param name="questionDto">CreateQuestionDto - dto для создания вопроса</param>
     /// <param name="cancellationToken">Токен для отмены запроса</param>
     /// <returns>Guid ID созданного вопроса</returns>
-    Task<Result<Guid, Failure>> Create(CreateQuestionDto questionDto, CancellationToken cancellationToken);
+    Task<Result<Guid, Failure>> Handler(CreateQuestionDto questionDto, CancellationToken cancellationToken);
 
     /// <summary>
     /// Добавление ответа на вопрос
