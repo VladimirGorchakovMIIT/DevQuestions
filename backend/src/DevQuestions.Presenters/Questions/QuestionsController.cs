@@ -1,4 +1,7 @@
 ﻿using DevQuestions.Application.Questions;
+using DevQuestions.Application.Questions.Abstractions;
+using DevQuestions.Application.Questions.AddAnswer;
+using DevQuestions.Application.Questions.CreateQuestions;
 using DevQuestions.Contracts.Questions;
 using DevQuestions.Presenters.ResponseExtensions;
 using Microsoft.AspNetCore.Mvc;
@@ -9,17 +12,16 @@ namespace DevQuestions.Presenters.Questions;
 [Route("[controller]")]
 public class QuestionsController : ControllerBase
 {
-    private readonly IQuestionService _questionService;
-
-    public QuestionsController(IQuestionService questionService)
-    {
-        _questionService = questionService;
-    }
-
+    
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateQuestionDto request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Create(
+        [FromServices] ICommandHandler<Guid, CreateQuestionCommand> handler,
+        [FromBody] CreateQuestionDto request, 
+        CancellationToken cancellationToken
+        )
     {
-        var result = await _questionService.Create(request, cancellationToken);
+        var command = new CreateQuestionCommand(request);
+        var result = await handler.Handle(command, cancellationToken);
         
         if (result.IsFailure)
             return result.Error.ToResponse();
@@ -67,8 +69,15 @@ public class QuestionsController : ControllerBase
     public async Task<IActionResult> AddAnswer(
         [FromRoute] Guid questionId,
         [FromBody] AddAnswerDto request,
+        [FromServices] ICommandHandler<Guid, AddAnswerCommand> handler,
         CancellationToken cancellationToken)
     {
+        var command = new AddAnswerCommand(questionId, request);
+        var result = await handler.Handle(command, cancellationToken);
+        
+        if(result.IsFailure)
+            return result.Error.ToResponse();
+        
         return Ok("Solution selected!");
     }
 }

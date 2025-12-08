@@ -35,8 +35,7 @@ public class QuestionsService : IQuestionService
         _usersCommunicationService = usersCommunicationService;
     }
 
-    
-    public async Task<Result<Guid, Failure>> Create(CreateQuestionDto questionDto, CancellationToken cancellationToken)
+    public async Task<Result<Guid, Failure>> Handler(CreateQuestionDto questionDto, CancellationToken cancellationToken)
     {
         // валидация входных данных
         var validationResult = await _createQuestionDtoValidator.ValidateAsync(questionDto, cancellationToken);
@@ -95,29 +94,29 @@ public class QuestionsService : IQuestionService
     public async Task<Result<Guid, Failure>> AddAnswer(Guid questionId, AddAnswerDto addAnswerDto, CancellationToken cancellationToken)
     {
         var validationResult = await _addAnswerDtoValidator.ValidateAsync(addAnswerDto, cancellationToken);
-        if(!validationResult.IsValid)
+        if (!validationResult.IsValid)
             return validationResult.ToErrors();
-        
+
         var userRatingResult = await _usersCommunicationService.GetUserRating(addAnswerDto.UserId, cancellationToken);
         if (userRatingResult.Value <= 0)
             return Errors.Questions.NotEnoughRating();
-        
+
         var transaction = await _transactionManager.BeginTransactionAsync(cancellationToken);
-        
+
         var questionResult = await _repository.GetByIdAsync(questionId, cancellationToken);
         if (questionResult.IsFailure)
             return questionResult.Error;
 
         var question = questionResult.Value;
         var answer = new Answer(Guid.NewGuid(), addAnswerDto.UserId, addAnswerDto.Text, questionResult.Value);
-        
+
         question.Answers.Add(answer);
         await _repository.SaveAsync(question, cancellationToken);
-        
+
         transaction.Commit();
-        
+
         _logger.LogInformation("Added answer with id: {AnswerId} to question {questionId}", answer.Id, questionId);
-        
+
         return answer.Id;
     }
 }
