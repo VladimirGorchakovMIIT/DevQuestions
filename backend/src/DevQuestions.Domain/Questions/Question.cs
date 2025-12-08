@@ -37,6 +37,6 @@ public class Question
     public Answer? Solution { get; set; }
 
     public List<Guid> Tags { get; set; } = [];
-
+    
     public QuestionStatus QuestionStatus { get; set; } = QuestionStatus.Open;
 }

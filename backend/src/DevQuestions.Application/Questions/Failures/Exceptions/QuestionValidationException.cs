@@ -3,10 +3,4 @@ using DevQuestions.Shared;
 
 namespace DevQuestions.Application.Questions.Failures.Exceptions;
 
-public class QuestionValidationException : BadRequestException
-{
-    public QuestionValidationException(Error[] errors) : base(errors)
-    {
-        
-    }
-}
+public class QuestionValidationException(Error[] errors) : BadRequestException(errors);

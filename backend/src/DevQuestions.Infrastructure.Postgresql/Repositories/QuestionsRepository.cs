@@ -1,7 +1,11 @@
-﻿using Dapper;
+﻿using CSharpFunctionalExtensions;
+using Dapper;
 using DevQuestions.Application.Database;
 using DevQuestions.Application.Questions;
+using DevQuestions.Application.Questions.Failures;
 using DevQuestions.Domain.Questions;
+using DevQuestions.Shared;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 
@@ -45,7 +49,10 @@ public class QuestionsRepository : IQuestionsRepository
 
     public async Task<Guid> SaveAsync(Question question, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        _dbContext.Questions.Attach(question);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+        
+        return question.Id;
     }
 
     public async Task<Guid> DeleteAsync(Guid questionId, CancellationToken cancellationToken)
@@ -53,12 +60,21 @@ public class QuestionsRepository : IQuestionsRepository
         throw new NotImplementedException();
     }
 
-    public async Task<Question> GetByIdAsync(Guid questionId, CancellationToken cancellationToken)
+    public async Task<Result<Question, Failure>> GetByIdAsync(Guid questionId, CancellationToken cancellationToken)
+    {
+        var question = await _dbContext.Questions.FirstOrDefaultAsync(x => x.Id == questionId, cancellationToken);
+        if(question is null)
+            return Errors.General.RecordNotFounded(questionId).ToFailure();
+        
+        return question;
+    }
+
+    public async Task<int> GetOpenUserQuestionAsync(Guid userId, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<int> GetOpenUserQuestionAsync(Guid userId, CancellationToken cancellationToken)
+    public Task<Guid> AddAnswerAsync(Answer answer, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
