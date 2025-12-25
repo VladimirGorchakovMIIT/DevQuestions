@@ -1,4 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
+using DevQuestions.Application.Questions.GetQuestionsWithFilters;
 using DevQuestions.Domain.Questions;
 using DevQuestions.Shared;
 
@@ -13,6 +14,8 @@ public interface IQuestionsRepository
     Task<Guid> DeleteAsync(Guid questionId, CancellationToken cancellationToken);
 
     Task<Result<Question, Failure>> GetByIdAsync(Guid questionId, CancellationToken cancellationToken);
+
+    Task<(IReadOnlyList<Question> Questions, long Count)> GetQuestionsWithFiltersAsync(GetQuestionsWithFiltersCommand command, CancellationToken cancellationToken);
     
     Task<int> GetOpenUserQuestionAsync(Guid userId, CancellationToken cancellationToken);
 }

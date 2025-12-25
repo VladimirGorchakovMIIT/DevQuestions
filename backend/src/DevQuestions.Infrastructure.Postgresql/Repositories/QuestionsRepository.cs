@@ -3,6 +3,7 @@ using Dapper;
 using DevQuestions.Application.Database;
 using DevQuestions.Application.Questions;
 using DevQuestions.Application.Questions.Failures;
+using DevQuestions.Application.Questions.GetQuestionsWithFilters;
 using DevQuestions.Domain.Questions;
 using DevQuestions.Shared;
 using Microsoft.EntityFrameworkCore;
@@ -67,6 +68,11 @@ public class QuestionsRepository : IQuestionsRepository
             return Errors.General.RecordNotFounded(questionId).ToFailure();
         
         return question;
+    }
+
+    public Task<(IReadOnlyList<Question> Questions, long Count)> GetQuestionsWithFiltersAsync(GetQuestionsWithFiltersCommand command, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<int> GetOpenUserQuestionAsync(Guid userId, CancellationToken cancellationToken)

@@ -4,7 +4,7 @@ using DevQuestions.Shared;
 
 namespace DevQuestions.Application.Questions.SelectSolution;
 
-public class SelectSolutionHandler : ICommandHandler<Guid, SelectSolutionCommand>
+public class SelectSolutionHandler : IHandler<Guid, SelectSolutionCommand>
 {
     public Task<Result<Guid, Failure>> Handle(SelectSolutionCommand command, CancellationToken cancellationToken)
     {

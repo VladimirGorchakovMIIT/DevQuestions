@@ -3,6 +3,7 @@ using DevQuestions.Application.Questions.Abstractions;
 using DevQuestions.Application.Questions.AddAnswer;
 using DevQuestions.Application.Questions.CreateQuestions;
 using DevQuestions.Contracts.Questions;
+using DevQuestions.Contracts.Questions.Dtos;
 using DevQuestions.Presenters.ResponseExtensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +16,7 @@ public class QuestionsController : ControllerBase
     
     [HttpPost]
     public async Task<IActionResult> Create(
-        [FromServices] ICommandHandler<Guid, CreateQuestionCommand> handler,
+        [FromServices] IHandler<Guid, CreateQuestionCommand> handler,
         [FromBody] CreateQuestionDto request, 
         CancellationToken cancellationToken
         )
@@ -69,7 +70,7 @@ public class QuestionsController : ControllerBase
     public async Task<IActionResult> AddAnswer(
         [FromRoute] Guid questionId,
         [FromBody] AddAnswerDto request,
-        [FromServices] ICommandHandler<Guid, AddAnswerCommand> handler,
+        [FromServices] IHandler<Guid, AddAnswerCommand> handler,
         CancellationToken cancellationToken)
     {
         var command = new AddAnswerCommand(questionId, request);

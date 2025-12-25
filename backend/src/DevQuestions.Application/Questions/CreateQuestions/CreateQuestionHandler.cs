@@ -3,6 +3,7 @@ using DevQuestions.Application.Extensions;
 using DevQuestions.Application.Questions.Abstractions;
 using DevQuestions.Application.Questions.Failures;
 using DevQuestions.Contracts.Questions;
+using DevQuestions.Contracts.Questions.Dtos;
 using DevQuestions.Domain.Questions;
 using DevQuestions.Shared;
 using FluentValidation;
@@ -10,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace DevQuestions.Application.Questions.CreateQuestions;
 
-public class CreateQuestionHandler : ICommandHandler<Guid, CreateQuestionCommand>
+public class CreateQuestionHandler : IHandler<Guid, CreateQuestionCommand>
 {
     private readonly IQuestionsRepository _repository;
     private readonly ILogger<QuestionsService> _logger;
